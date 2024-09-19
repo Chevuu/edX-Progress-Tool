@@ -1,8 +1,8 @@
-/* src/App.css */
 :root {
   --tu-delft-blue: #00a6d6;
   --tu-delft-black: #231f20;
   --tu-delft-grey: #f0f0f0;
+  --delete-red: #e74c3c;
 }
 
 .App {
@@ -12,6 +12,38 @@
   padding: 20px;
 }
 
+/* Dashboard header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  color: var(--tu-delft-black);
+}
+
+.course-code {
+  color: var(--tu-delft-blue);
+  font-weight: bold;
+}
+
+.add-checklist-btn {
+  background-color: var(--tu-delft-blue);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-checklist-btn:hover {
+  background-color: #145a89;
+}
+
+/* Checklist container */
 .checklist-container {
   max-width: 600px;
   margin: 0 auto;
@@ -23,6 +55,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Checklist item */
 .checklist-item {
   display: flex;
   align-items: center;
@@ -50,6 +83,7 @@
   transform: scale(1.02);
 }
 
+/* Progress bar */
 .progress-bar-container {
   background-color: var(--tu-delft-grey);
   border-radius: 10px;

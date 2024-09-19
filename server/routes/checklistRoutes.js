@@ -12,4 +12,13 @@ router.get('/checklist/:courseCode/:courseRun/:checklistId', checklistController
 // PUT: Update checklist checks
 router.put('/checklist/:courseCode/:courseRun/:checklistId', checklistController.updateChecklist);
 
+// GET: Fetch all checklists by CourseCode for admin
+router.get('/admin/get-all/:courseCode', checklistController.getAllChecklistsByCourseCode);
+
+// PUT: Update checklist questions
+router.put('/checklist/:courseCode/:courseRun/:checklistId/questions', checklistController.updateChecklistQuestions);
+
+// DELETE: Delete a checklist
+router.delete('/checklist/:checklistId', checklistController.deleteChecklist);
+
 module.exports = router;

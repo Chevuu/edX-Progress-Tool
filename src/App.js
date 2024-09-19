@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import Checklist from './components/Checklist';
+import AdminDashboard from './components/AdminDashboard';
 import './App.css';
+import './styles/admin.css';
+import './styles/modal.css';
 
 function ChecklistPage() {
   const { courseCode, courseRun, checklistID } = useParams(); // Get parameters from URL
@@ -55,8 +58,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Define a route with dynamic parameters for courseCode, courseRun, and checklistID */}
+        {/* Route for individual checklist */}
         <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
+        {/* Route for admin to view all checklists by course code */}
+        <Route path="/admin/get-all/:courseCode" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
