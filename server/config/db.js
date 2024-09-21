@@ -2,8 +2,8 @@ const mysql = require('mysql2');
 
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: '',
+  user: 'vukroot',
+  password: 'Aeghe+i1',
   database: 'progress-tool',
 });
 
