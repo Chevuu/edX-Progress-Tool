@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
   const [courseRun, setCourseRun] = useState('');
   const [checklistID, setChecklistID] = useState('');
-  const [questions, setQuestions] = useState(['']); // start with one empty question
-  const [error, setError] = useState(''); // State to store error
-  const [loading, setLoading] = useState(false); // Loading state
+  const [questions, setQuestions] = useState(['']);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // Function to add new question
   const handleAddQuestion = () => {
@@ -32,14 +32,14 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
       return;
     }
   
-    setLoading(true); // Set loading state to true
+    setLoading(true);
     console.log("Loading state set to true");
   
     const newChecklistToSend = {
       CourseRun: courseRun,
       ChecklistID: checklistID,
       CourseCode: courseCode,
-      Questions: questions, // Send questions as an array, not a string
+      Questions: questions,
     };
   
     // Send the POST request
@@ -62,7 +62,7 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
           CourseRun: courseRun,
           ChecklistID: checklistID,
           CourseCode: courseCode,
-          Questions: questions, // Pass the array directly
+          Questions: questions,
         };
         onAddChecklist(newChecklist);
         setLoading(false);

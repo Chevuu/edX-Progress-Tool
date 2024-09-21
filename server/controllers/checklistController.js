@@ -53,7 +53,7 @@ exports.getAllChecklistsByCourseCode = (req, res) => {
   const query = `SELECT * FROM Checklist WHERE CourseCode = ? AND UserID = 0`;
   db.query(query, [courseCode], (err, results) => {
     if (err) {
-      console.error('Error executing query:', err); // Add this line to log the error
+      console.error('Error executing query:', err); 
       return res.status(500).json({ error: 'Error fetching checklists' });
     }
 
@@ -84,7 +84,6 @@ exports.deleteChecklist = (req, res) => {
   const { checklistId } = req.params;
 
   const query = `DELETE FROM Checklist WHERE ChecklistID = ? AND UserID = 0`;
-  console.log('Executing query:', query, [checklistId]);
   db.query(query, [checklistId], (err, result) => {
     if (err) {
       return res.status(500).json({ error: 'Error deleting checklist' });

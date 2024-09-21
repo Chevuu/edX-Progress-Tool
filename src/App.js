@@ -7,7 +7,7 @@ import './styles/admin.css';
 import './styles/modal.css';
 
 function ChecklistPage() {
-  const { courseCode, courseRun, checklistID } = useParams(); // Get parameters from URL
+  const { courseCode, courseRun, checklistID } = useParams();
   const [checklist, setChecklist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

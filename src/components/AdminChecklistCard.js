@@ -6,7 +6,7 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
       const parsed = JSON.parse(checklist.Questions);
       return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
-      return []; // If parsing fails, return an empty array
+      return [];
     }
   })();
 
@@ -57,7 +57,6 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
 
   const handleConfirmDelete = () => {
     if (window.confirm("Are you sure you want to delete this checklist?")) {
-      // Call the handleDelete passed from parent (AdminDashboard) to delete the checklist
       handleDelete(checklist.ChecklistID);
     }
   };

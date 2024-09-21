@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminChecklistCard from './AdminChecklistCard';
-import AddChecklistModal from './AddChecklistModal'; // Import the modal component
+import AddChecklistModal from './AddChecklistModal';
 
 const AdminDashboard = () => {
   const { courseCode } = useParams();
@@ -9,7 +9,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
-  const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/admin/get-all/${courseCode}`)
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
   };
 
   const handleAddChecklist = () => {
-    setShowModal(true); // Show the modal when clicking "Add Checklist"
+    setShowModal(true);
   };
 
   const handleAddNewChecklist = (newChecklist) => {
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); // Hide the modal
+    setShowModal(false);
   };
 
   const handleFilterChange = (event) => {
@@ -87,7 +87,6 @@ const AdminDashboard = () => {
         <button className="add-checklist-btn" onClick={handleAddChecklist}>Add Checklist</button>
       </div>
       
-      {/* Filter Input */}
       <div className="filter-container">
         <label htmlFor="filter">Filter by Course Run: </label>
         <input
@@ -114,7 +113,6 @@ const AdminDashboard = () => {
         )}
       </div>
 
-      {/* Modal Component */}
       {showModal && (
         <AddChecklistModal 
           courseCode={courseCode}

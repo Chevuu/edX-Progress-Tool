@@ -14,7 +14,7 @@ const ChecklistItem = ({ item, handleCheck }) => {
         type="checkbox"
         checked={isChecked}
         onChange={handleChange}
-        style={{ pointerEvents: 'none' }} // Disable click on the checkbox itself
+        style={{ pointerEvents: 'none' }}
       />
       <label>{item.task}</label>
     </div>

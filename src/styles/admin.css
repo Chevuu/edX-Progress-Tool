@@ -86,11 +86,11 @@
   }
 
   .filter-btn {
-    background-color: var(--delete-red); /* Make Clear Filter button red for visibility */
+    background-color: var(--delete-red);
   }
   
   .filter-btn:hover {
-    background-color: #c0392b; /* Darker red on hover */
+    background-color: #c0392b;
   }
   
   .filter-container button:hover {
