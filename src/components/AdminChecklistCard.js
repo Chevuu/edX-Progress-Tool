@@ -33,7 +33,7 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
     const updatedChecklist = { ...checklist, Questions: questions };
     
     // Send the PUT request to update checklist questions in the backend
-    fetch(`http://localhost:3001/api/checklist/${checklist.CourseCode}/${checklist.CourseRun}/${checklist.ChecklistID}/questions`, {
+    fetch(`/api/checklist/${checklist.CourseCode}/${checklist.CourseRun}/${checklist.ChecklistID}/questions`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

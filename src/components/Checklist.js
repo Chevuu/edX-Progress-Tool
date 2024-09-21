@@ -18,7 +18,7 @@ const Checklist = ({ items, courseCode, courseRun, checklistID }) => {
   };
 
   const updateChecksInDatabase = (updatedChecks) => {
-    fetch(`http://localhost:3001/api/checklist/${courseCode}/${courseRun}/${checklistID}`, {
+    fetch(`/api/checklist/${courseCode}/${courseRun}/${checklistID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

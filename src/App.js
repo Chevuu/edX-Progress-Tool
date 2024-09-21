@@ -13,7 +13,7 @@ function ChecklistPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/checklist/${courseCode}/${courseRun}/${checklistID}`)
+    fetch(`/api/checklist/${courseCode}/${courseRun}/${checklistID}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklist');

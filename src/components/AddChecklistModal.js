@@ -43,7 +43,7 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
     };
   
     // Send the POST request
-    fetch('http://localhost:3001/api/checklist', {
+    fetch('/api/checklist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

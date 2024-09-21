@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/admin/get-all/${courseCode}`)
+    fetch(`/api/admin/get-all/${courseCode}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklists');
@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   }, [courseCode]);
 
   const handleDelete = (checklistID) => {
-    fetch(`http://localhost:3001/api/checklist/${checklistID}`, {
+    fetch(`/api/checklist/${checklistID}`, {
       method: 'DELETE',
     })
       .then(response => {
