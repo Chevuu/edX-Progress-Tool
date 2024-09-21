@@ -4,7 +4,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'vukroot',
   password: 'Aeghe+i1',
-  database: 'progress-tool',
+  database: 'map',
 });
 
 db.connect(err => {
