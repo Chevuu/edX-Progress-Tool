@@ -13,7 +13,8 @@ function ChecklistPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/checklist/${courseCode}/${courseRun}/${checklistID}`)
+    // Fetch checklist data from PHP backend
+    fetch(`/server/checklist.php?courseCode=${courseCode}&courseRun=${courseRun}&checklistID=${checklistID}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklist');
@@ -21,6 +22,7 @@ function ChecklistPage() {
         return response.json();
       })
       .then(data => {
+        // Parse the checklist data
         const parsedQuestions = JSON.parse(data.Questions).map((question, index) => ({
           id: index,
           task: question,
@@ -54,6 +56,7 @@ function ChecklistPage() {
   );
 }
 
+// Main App component with routing
 function App() {
   return (
     <Router>

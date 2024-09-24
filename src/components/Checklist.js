@@ -18,8 +18,8 @@ const Checklist = ({ items, courseCode, courseRun, checklistID }) => {
   };
 
   const updateChecksInDatabase = (updatedChecks) => {
-    fetch(`/api/checklist/${courseCode}/${courseRun}/${checklistID}`, {
-      method: 'PUT',
+    fetch(`../model/update_checklist.php?courseCode=${courseCode}&courseRun=${courseRun}&checklistID=${checklistID}`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
