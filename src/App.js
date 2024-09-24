@@ -4,7 +4,7 @@ function App() {
   const [entry, setEntry] = useState(null);
 
   useEffect(() => {
-    fetch('getData.php')
+    fetch('/server/getData.php')
       .then(response => response.json())
       .then(data => {
         setEntry(data);
