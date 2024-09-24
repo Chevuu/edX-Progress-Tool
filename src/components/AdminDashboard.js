@@ -12,6 +12,8 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    console.log("Current URL:", window.location.href);
+
     fetch(`/server/get_all_checklists.php?courseCode=${courseCode}`)
       .then(response => {
         if (!response.ok) {
