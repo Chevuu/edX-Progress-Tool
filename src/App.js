@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams, Navigate } from 'react-router-dom';
 import Checklist from './components/Checklist';
 import AdminDashboard from './components/AdminDashboard';
 import './App.css';
@@ -61,8 +61,12 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Redirect base path to /admin/get-all/1 */}
+        <Route path="/" element={<Navigate to="/admin/get-all/1" replace />} />
+        
         {/* Route for individual checklist */}
         <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
+        
         {/* Route for admin to view all checklists by course code */}
         <Route path="/admin/get-all/:courseCode" element={<AdminDashboard />} />
       </Routes>
