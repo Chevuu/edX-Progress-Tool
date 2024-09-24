@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/admin/get-all/${courseCode}`)
+    fetch(`/server/checklist.php?courseCode=${courseCode}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklists');
