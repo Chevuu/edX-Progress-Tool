@@ -58,7 +58,7 @@ function ChecklistPage() {
 
 function App() {
   return (
-    <Router basename="/progress-tool/edX-Progress-Tool">
+    <Router basename="/progress-tool/edX-Progress-Tool/build">
       <Routes>
         {/* Redirect base path to admin dashboard with courseCode=1 */}
         <Route path="/" element={<AdminDashboard />} />
