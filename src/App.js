@@ -59,7 +59,7 @@ function ChecklistPage() {
 // Main App component with routing
 function App() {
   return (
-    <Router>
+    <Router basename="/progress-tool/edX-Progress-Tool">
       <Routes>
         {/* Redirect base path to /admin/get-all/1 */}
         <Route path="/" element={<Navigate to="/admin/get-all/1" replace />} />
