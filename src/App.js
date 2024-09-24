@@ -56,19 +56,17 @@ function ChecklistPage() {
   );
 }
 
-// Main App component with routing
 function App() {
   return (
     <Router basename="/progress-tool/edX-Progress-Tool">
       <Routes>
-        {/* Redirect base path to /admin/get-all/1 */}
-        <Route path="/" element={<Navigate to="/admin/get-all/1" replace />} />
+        {/* Redirect base path to admin dashboard with courseCode=1 */}
+        <Route path="/" element={<AdminDashboard />} />
         
-        {/* Route for individual checklist */}
+        {/* Route for individual checklist
         <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
         
-        {/* Route for admin to view all checklists by course code */}
-        <Route path="/admin/get-all/:courseCode" element={<AdminDashboard />} />
+        <Route path="/admin/get-all/1" element={<AdminDashboard />} /> */}
       </Routes>
     </Router>
   );
