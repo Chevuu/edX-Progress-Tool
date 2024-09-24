@@ -4,7 +4,7 @@ function App() {
   const [entry, setEntry] = useState(null);
 
   useEffect(() => {
-    fetch('/server/getData.php')
+    fetch('/progress-tool/edX-Progress-Tool/server/getData.php')
       .then(response => response.json())
       .then(data => {
         setEntry(data);
