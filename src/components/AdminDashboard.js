@@ -4,7 +4,7 @@ import AdminChecklistCard from './AdminChecklistCard';
 import AddChecklistModal from './AddChecklistModal';
 
 const AdminDashboard = () => {
-  const { courseCode } = useParams();
+  const courseCode = 1;
   const [checklists, setChecklists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetch(`/server/checklist.php?courseCode=${courseCode}`)
+    fetch(`/server/get_all_checklists.php?courseCode=${courseCode}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklists');
