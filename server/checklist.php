@@ -19,6 +19,10 @@ if (isset($_GET['courseCode']) && isset($_GET['courseRun']) && isset($_GET['chec
         header('HTTP/1.1 404 Not Found');
         echo json_encode(['message' => 'Checklist not found']);
     }
+} else if (isset($_GET['courseCode'])) {
+    $courseCode = $_GET['courseCode'];
+    $checklists = $checklistModel->getAllChecklistsByCourseCode($courseCode);
+    echo json_encode($checklists);
 } else {
     header('HTTP/1.1 400 Bad Request');
     echo json_encode(['message' => 'Missing parameters']);
