@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import Checklist from './components/Checklist';
 import './App.css';
 import './styles/admin.css';
@@ -17,9 +17,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Define the route with parameters */}
         <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
-        {/* Other routes can go here */}
       </Routes>
     </Router>
   );
