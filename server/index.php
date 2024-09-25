@@ -86,7 +86,7 @@ function updateChecklist($mysqli) {
 }
 ?>
 
-// Additional functions (createChecklist, deleteChecklist, etc.) can be added similarly.
+<!-- // Additional functions (createChecklist, deleteChecklist, etc.) can be added similarly.
 
 // function deleteChecklist($mysqli, $checklistId) {
 //     $checklistId = $mysqli->real_escape_string($checklistId);
@@ -124,4 +124,4 @@ function updateChecklist($mysqli) {
 //         http_response_code(500);
 //         echo json_encode(['error' => 'Error saving checklist: ' . $mysqli->error]);
 //     }
-// }
+// } -->
