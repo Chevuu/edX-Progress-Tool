@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import Checklist from './components/Checklist';
-import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 import './styles/admin.css';
 import './styles/modal.css';
@@ -13,7 +12,7 @@ function ChecklistPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/checklist/${courseCode}/${courseRun}/${checklistID}`)
+    fetch(`/progress-tool/edX-Progress-Tool/server/file_name_here_php`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklist');
@@ -56,14 +55,9 @@ function ChecklistPage() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Route for individual checklist */}
-        <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
-        {/* Route for admin to view all checklists by course code */}
-        <Route path="/admin/get-all/:courseCode" element={<AdminDashboard />} />
-      </Routes>
-    </Router>
+    <div>
+      <Checklist courseCode="1" courseRun="2" checklistID="3" />
+    </div>
   );
 }
 
