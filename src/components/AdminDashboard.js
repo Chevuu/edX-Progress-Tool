@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import AdminChecklistCard from './AdminChecklistCard';
 import AddChecklistModal from './AddChecklistModal';
 
 const AdminDashboard = () => {
   const { courseCode } = useParams();
   const [checklists, setChecklists] = useState([]);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
