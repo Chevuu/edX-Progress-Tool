@@ -10,6 +10,14 @@ import './styles/modal.css';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  function ChecklistPage() {
+    const { courseCode, courseRun, checklistID } = useParams();
+  
+    return (
+      <Checklist courseCode={courseCode} courseRun={courseRun} checklistID={checklistID} />
+    );
+  }
+
   // Check localStorage to persist authentication state across refreshes
   useEffect(() => {
     const auth = localStorage.getItem('isAuthenticated');
@@ -25,7 +33,7 @@ function App() {
         <Route path="/admin/:courseCode" element={
           isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" replace />
         } />
-        <Route path="/:courseCode/:courseRun/:checklistID" element={<Checklist />} />
+        <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
         {/* Redirect any unknown paths to the login page or a 404 page */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
