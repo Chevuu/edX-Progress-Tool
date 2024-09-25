@@ -21,8 +21,21 @@ function App() {
   // Check localStorage to persist authentication state across refreshes
   useEffect(() => {
     const auth = localStorage.getItem('isAuthenticated');
-    if (auth === 'true') {
-      setIsAuthenticated(true);
+    const sessionExpiry = localStorage.getItem('sessionExpiry');
+    
+    // Check if the session is still valid
+    if (auth === 'true' && sessionExpiry) {
+      const currentTime = new Date().getTime();
+
+      // If the current time is less than the expiry time, keep the session active
+      if (currentTime < sessionExpiry) {
+        setIsAuthenticated(true);
+      } else {
+        // If the session has expired, clear the authentication
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('sessionExpiry');
+        setIsAuthenticated(false);
+      }
     }
   }, []);
 

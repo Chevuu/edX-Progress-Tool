@@ -16,8 +16,12 @@ const Login = ({ setIsAuthenticated }) => {
 
     if (password === validPassword) {
       setIsAuthenticated(true);
-      // Optionally, store auth state in localStorage
+      
+      // Store auth state and session expiry (1 hour from now)
+      const expiryTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour in milliseconds
       localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('sessionExpiry', expiryTime);
+
       navigate(`/admin/${username}`);
     } else {
       setError('Invalid username or password');
