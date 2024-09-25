@@ -71,9 +71,11 @@ function updateChecklist($mysqli) {
         return;
     }
 
+    // Convert the Checks array to JSON string
     $ChecksJSON = json_encode($Checks);
 
-    $query = "UPDATE Checklist SET Checks = '$ChecksJSON' WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND UserID = 0 AND ChecklistID = '$checklistID'";
+    // Prepare the SQL query
+    $query = "UPDATE checklist SET Checks = '$ChecksJSON' WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND UserID = 0 AND ChecklistID = '$checklistID'";
 
     if ($mysqli->query($query)) {
         echo json_encode(['message' => 'Checklist updated successfully']);
@@ -82,6 +84,7 @@ function updateChecklist($mysqli) {
         echo json_encode(['error' => 'Error updating checklist: ' . $mysqli->error]);
     }
 }
+?>
 
 // Additional functions (createChecklist, deleteChecklist, etc.) can be added similarly.
 
@@ -122,4 +125,3 @@ function updateChecklist($mysqli) {
 //         echo json_encode(['error' => 'Error saving checklist: ' . $mysqli->error]);
 //     }
 // }
-?>
