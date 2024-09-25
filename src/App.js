@@ -18,7 +18,7 @@ function App() {
     <Router>
       <Routes>
         {/* Define the route with parameters */}
-        <Route path="/checklist/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
+        <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
         {/* Other routes can go here */}
       </Routes>
     </Router>
