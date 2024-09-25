@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import Checklist from './components/Checklist';
+import AdminDashboard from './components/AdminDashboard'; // Import AdminDashboard
 import './App.css';
 import './styles/admin.css';
 import './styles/modal.css';
@@ -18,6 +19,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
+        <Route path="/admin/:courseCode" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

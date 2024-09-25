@@ -12,7 +12,8 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/admin/get-all/${courseCode}`)
+    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=getAllChecklistsByCourseCode&courseCode=${courseCode}`;
+    fetch(url)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error fetching checklists');
@@ -30,7 +31,8 @@ const AdminDashboard = () => {
   }, [courseCode]);
 
   const handleDelete = (checklistID) => {
-    fetch(`/api/checklist/${checklistID}`, {
+    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=deleteChecklist&checklistID=${checklistID}`;
+    fetch(url, {
       method: 'DELETE',
     })
       .then(response => {

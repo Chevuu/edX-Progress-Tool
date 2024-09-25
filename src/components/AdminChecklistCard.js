@@ -32,13 +32,19 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
   const handleSave = () => {
     const updatedChecklist = { ...checklist, Questions: questions };
     
-    // Send the PUT request to update checklist questions in the backend
-    fetch(`/api/checklist/${checklist.CourseCode}/${checklist.CourseRun}/${checklist.ChecklistID}/questions`, {
-      method: 'PUT',
+    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=updateChecklistQuestions`;
+    const payload = {
+      courseCode: checklist.CourseCode,
+      courseRun: checklist.CourseRun,
+      checklistID: checklist.ChecklistID,
+      Questions: questions,
+    };
+    fetch(url, {
+      method: 'POST', // Use POST instead of PUT
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ Questions: questions }),
+      body: JSON.stringify(payload),
     })
       .then(response => {
         if (!response.ok) {
