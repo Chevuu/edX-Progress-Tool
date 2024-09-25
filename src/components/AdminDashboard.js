@@ -74,6 +74,11 @@ const AdminDashboard = () => {
     checklist.CourseRun.toLowerCase().includes(filter.toLowerCase())
   );
 
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    navigate('/login', { replace: true });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -86,6 +91,7 @@ const AdminDashboard = () => {
     <div>
       <div className="dashboard-header">
         <h1>Checklists for Course: <span className="course-code">{courseCode}</span></h1>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
         <button className="add-checklist-btn" onClick={handleAddChecklist}>Add Checklist</button>
       </div>
       

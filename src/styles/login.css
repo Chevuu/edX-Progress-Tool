@@ -1,0 +1,44 @@
+/* login.css */
+.login-container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-container form label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  .login-container form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  .login-container form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--tu-delft-blue);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .login-container form button:hover {
+    background-color: #003e70;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
