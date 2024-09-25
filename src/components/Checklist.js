@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import ChecklistItem from './ChecklistItem';
 import ProgressBar from './ProgressBar';
 
-const Checklist = ({ courseCode, courseRun, checklistID }) => {
+const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   const [checklistItems, setChecklistItems] = useState([]);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Console log the user_id
+  console.log('User ID:', user_id);
+
   // Fetch the checklist data
   useEffect(() => {
     // Construct the URL with query parameters
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=getChecklist&courseCode=${courseCode}&courseRun=${courseRun}&checklistID=${checklistID}`;
+    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=getChecklist&courseCode=${courseCode}&courseRun=${courseRun}&checklistID=${checklistID}&user_id=${user_id}`;
 
     fetch(url)
       .then(response => {
@@ -57,6 +60,7 @@ const Checklist = ({ courseCode, courseRun, checklistID }) => {
       courseCode,
       courseRun,
       checklistID,
+      user_id,
       Checks: updatedChecks,
     };
 

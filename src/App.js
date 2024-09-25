@@ -11,10 +11,10 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   function ChecklistPage() {
-    const { courseCode, courseRun, checklistID } = useParams();
+    const { courseCode, courseRun, checklistID, user_id } = useParams();
   
     return (
-      <Checklist courseCode={courseCode} courseRun={courseRun} checklistID={checklistID} />
+      <Checklist courseCode={courseCode} courseRun={courseRun} checklistID={checklistID} user_id={user_id} />
     );
   }
 
@@ -33,7 +33,7 @@ function App() {
         <Route path="/admin/:courseCode" element={
           isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" replace />
         } />
-        <Route path="/:courseCode/:courseRun/:checklistID" element={<ChecklistPage />} />
+        <Route path="/:courseCode/:courseRun/:checklistID/:user_id" element={<ChecklistPage />} />
         {/* Redirect any unknown paths to the login page or a 404 page */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
