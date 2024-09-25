@@ -145,12 +145,8 @@ function getAllChecklistsByCourseCode($mysqli) {
         while ($row = $result->fetch_assoc()) {
             $checklists[] = $row;
         }
-        if (empty($checklists)) {
-            http_response_code(404);
-            echo json_encode(['message' => 'No checklists found for the specified course code']);
-        } else {
-            echo json_encode($checklists);
-        }
+        // Always return a 200 OK status with the checklists array (empty or not)
+        echo json_encode($checklists);
     } else {
         http_response_code(500);
         echo json_encode(['error' => 'Error fetching checklists: ' . $mysqli->error]);
@@ -158,6 +154,12 @@ function getAllChecklistsByCourseCode($mysqli) {
 }
 
 function deleteChecklist($mysqli) {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Invalid HTTP method']);
+        return;
+    }
+
     $checklistID = isset($_REQUEST['checklistID']) ? $mysqli->real_escape_string($_REQUEST['checklistID']) : null;
 
     if (!$checklistID) {

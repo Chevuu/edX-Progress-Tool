@@ -34,7 +34,7 @@ const AdminDashboard = () => {
   const handleDelete = (checklistID) => {
     const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=deleteChecklist&checklistID=${checklistID}`;
     fetch(url, {
-      method: 'DELETE',
+      method: 'POST', 
     })
       .then(response => {
         if (!response.ok) {
