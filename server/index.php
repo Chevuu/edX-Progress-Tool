@@ -57,7 +57,7 @@ function getChecklist($mysqli) {
     if ($result) {
         if ($result->num_rows === 0) {
             // If not, create a copy from the default checklist (UserID = 0)
-            $defaultQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = 0";
+            $defaultQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '0'";
             $defaultResult = $mysqli->query($defaultQuery);
 
             if ($defaultResult && $defaultResult->num_rows > 0) {
@@ -191,34 +191,6 @@ function updateChecklistQuestions($mysqli) {
         return;
     }
 
-    // Convert the Questions array to JSON string
-    $QuestionsJSON = json_encode($Questions);
-
-    // Prepare the SQL query
-    $query = "UPDATE checklist SET Questions = '$QuestionsJSON' WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND UserID = 0 AND ChecklistID = '$checklistID'";
-
-    if ($mysqli->query($query)) {
-        echo json_encode(['message' => 'Checklist questions updated successfully']);
-    } else {
-        http_response_code(500);
-        echo json_encode(['error' => 'Error updating checklist questions: ' . $mysqli->error]);
-    }
-}
-
-function updateChecklistQuestions($mysqli) {
-    $input = json_decode(file_get_contents('php://input'), true);
-
-    $courseCode = isset($input['courseCode']) ? $mysqli->real_escape_string($input['courseCode']) : null;
-    $courseRun = isset($input['courseRun']) ? $mysqli->real_escape_string($input['courseRun']) : null;
-    $checklistID = isset($input['checklistID']) ? $mysqli->real_escape_string($input['checklistID']) : null;
-    $Questions = isset($input['Questions']) ? $input['Questions'] : null;
-
-    if (!$courseCode || !$courseRun || !$checklistID || $Questions === null) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Missing parameters']);
-        return;
-    }
-
     // Fetch all checklists with matching CourseCode, CourseRun, and ChecklistID
     $selectQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID'";
     $result = $mysqli->query($selectQuery);
@@ -260,3 +232,36 @@ function updateChecklistQuestions($mysqli) {
         echo json_encode(['error' => 'Error fetching checklists: ' . $mysqli->error]);
     }
 }
+
+function createChecklist($mysqli) {
+    $input = json_decode(file_get_contents('php://input'), true);
+    if (!$input) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid JSON input']);
+        return;
+    }
+
+    $CourseRun = isset($input['CourseRun']) ? $mysqli->real_escape_string($input['CourseRun']) : null;
+    $CourseCode = isset($input['CourseCode']) ? $mysqli->real_escape_string($input['CourseCode']) : null;
+    $Questions = isset($input['Questions']) ? $input['Questions'] : null;
+    $ChecklistID = isset($input['ChecklistID']) ? $mysqli->real_escape_string($input['ChecklistID']) : null;
+
+    if (!$CourseRun || !$CourseCode || !$Questions || !$ChecklistID) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing parameters']);
+        return;
+    }
+
+    $QuestionsJSON = json_encode($Questions);
+    $Checks = json_encode(array_fill(0, count($Questions), false));
+
+    $query = "INSERT INTO checklist (CourseRun, CourseCode, UserID, Questions, Checks, ChecklistID) VALUES ('$CourseRun', '$CourseCode', 0, '$QuestionsJSON', '$Checks', '$ChecklistID')";
+
+    if ($mysqli->query($query)) {
+        echo json_encode(['message' => 'Checklist created successfully', 'Id' => $mysqli->insert_id]);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error saving checklist: ' . $mysqli->error]);
+    }
+}
+?>
