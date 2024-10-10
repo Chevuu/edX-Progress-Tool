@@ -1,12 +1,9 @@
 <?php
-// index.php
 
 header('Content-Type: application/json');
 
-// Include database connection
 require 'db_connect.php';
 
-// Determine the HTTP method and requested action
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $action = isset($_REQUEST['method']) ? $_REQUEST['method'] : '';
 
@@ -37,7 +34,6 @@ switch ($action) {
 
 $mysqli->close();
 
-// Function to get a specific checklist
 function getChecklist($mysqli) {
     $courseCode_sanitized = filter_var($_GET['courseCode'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $courseCode = htmlspecialchars($courseCode_sanitized, ENT_QUOTES, 'UTF-8', false);

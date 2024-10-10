@@ -7,6 +7,8 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [instructionText, setInstructionText] = useState(''); 
+
 
   // Console log the user_id
   console.log('User ID:', user_id);
@@ -30,6 +32,7 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
           isChecked: JSON.parse(data.Checks)[index],
         }));
         setChecklistItems(parsedQuestions);
+        setInstructionText(data.InstructionText); // Set the instruction text from the server
         setLoading(false);
       })
       .catch(error => {
