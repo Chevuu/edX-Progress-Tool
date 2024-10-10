@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import Checklist from './components/Checklist';
 import AdminDashboard from './components/AdminDashboard';
-import Login from './components/Login'; // Import the Login component
+import Login from './components/Login';
 import './App.css';
 import './styles/admin.css';
 import './styles/modal.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null); // Initialize as null (unknown)
 
   function ChecklistPage() {
     const { courseCode, courseRun, checklistID, user_id } = useParams();
@@ -18,26 +18,28 @@ function App() {
     );
   }
 
-  // Check localStorage to persist authentication state across refreshes
   useEffect(() => {
     const auth = localStorage.getItem('isAuthenticated');
     const sessionExpiry = localStorage.getItem('sessionExpiry');
     
-    // Check if the session is still valid
     if (auth === 'true' && sessionExpiry) {
       const currentTime = new Date().getTime();
 
-      // If the current time is less than the expiry time, keep the session active
-      if (currentTime < sessionExpiry) {
+      if (currentTime < Number(sessionExpiry)) {
         setIsAuthenticated(true);
       } else {
-        // If the session has expired, clear the authentication
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('sessionExpiry');
         setIsAuthenticated(false);
       }
+    } else {
+      setIsAuthenticated(false);
     }
   }, []);
+
+  if (isAuthenticated === null) {
+    return null;
+  }
 
   return (
     <Router>
@@ -47,7 +49,6 @@ function App() {
           isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" replace />
         } />
         <Route path="/:courseCode/:courseRun/:checklistID/:user_id" element={<ChecklistPage />} />
-        {/* Redirect any unknown paths to the login page or a 404 page */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
