@@ -77,6 +77,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('sessionExpiry');
     navigate('/login', { replace: true });
   };
 

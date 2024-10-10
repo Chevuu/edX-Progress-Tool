@@ -39,10 +39,17 @@ $mysqli->close();
 
 // Function to get a specific checklist
 function getChecklist($mysqli) {
-    $courseCode = isset($_GET['courseCode']) ? $mysqli->real_escape_string($_GET['courseCode']) : null;
-    $courseRun = isset($_GET['courseRun']) ? $mysqli->real_escape_string($_GET['courseRun']) : null;
-    $checklistID = isset($_GET['checklistID']) ? $mysqli->real_escape_string($_GET['checklistID']) : null;
-    $user_id = isset($_GET['user_id']) ? $mysqli->real_escape_string($_GET['user_id']) : null;
+    $courseCode_sanitized = filter_var($_GET['courseCode'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $courseCode = htmlspecialchars($courseCode_sanitized, ENT_QUOTES, 'UTF-8', false);
+
+    $courseRun_sanitized = filter_var($_GET['courseRun'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $courseRun = htmlspecialchars($courseRun_sanitized, ENT_QUOTES, 'UTF-8', false);
+
+    $checklistID_sanitized = filter_var($_GET['checklistID'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $checklistID = htmlspecialchars($checklistID_sanitized, ENT_QUOTES, 'UTF-8', false);
+
+    $user_id_sanitized = filter_var($_GET['user_id'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $user_id = htmlspecialchars($user_id_sanitized, ENT_QUOTES, 'UTF-8', false);
 
     if (!$courseCode || !$courseRun || !$checklistID || !$user_id) {
         http_response_code(400);

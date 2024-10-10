@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 
 const AdminChecklistCard = ({ checklist, handleDelete }) => {
    const initialQuestions = (() => {
-    try {
-      const parsed = JSON.parse(checklist.Questions);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
-      return [];
+    if (Array.isArray(checklist.Questions)) {
+      // If Questions is already an array, use it directly
+      return checklist.Questions;
+    } else {
+      // If Questions is a JSON string, parse it
+      try {
+        const parsed = JSON.parse(checklist.Questions);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
     }
   })();
 
