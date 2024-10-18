@@ -27,8 +27,10 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
           task: question,
           isChecked: JSON.parse(data.Checks)[index],
         }));
+        console.log('Data:', data);
         setChecklistItems(parsedQuestions);
         setInstruction(data.Instruction);
+        console.log('Instruction:', instruction);
         setLoading(false);
       })
       .catch(error => {
@@ -103,7 +105,6 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   return (
     <div className="checklist-container">
       {instruction && <p className="instruction-text">{instruction}</p>}
-      console.log('Instruction:', instruction); // Ensure this logs the correct instruction
       {checklistItems.map(item => (
         <ChecklistItem
           key={item.id}
