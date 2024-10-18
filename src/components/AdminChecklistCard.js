@@ -35,13 +35,12 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
     setQuestions(updatedQuestions);
   };
 
-  const handleSave = () => {
-    const updatedChecklist = { ...checklist, Questions: questions };
-    
+  const handleSave = () => {    
     const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=updateChecklistQuestions`;
     const payload = {
       courseCode: checklist.CourseCode,
       courseRun: checklist.CourseRun,
+      instruction: checklist.Instruction,
       checklistID: checklist.ChecklistID,
       Questions: questions,
     };
@@ -81,6 +80,7 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
         </button>
         <h2>Course Run: {checklist.CourseRun}</h2>
         <p className="label">Checklist ID: {checklist.ChecklistID}</p>
+        <p className="label">{checklist.Instruction}</p>
         <p className="label">Questions:</p>
         <div className="questions">
           <ul>

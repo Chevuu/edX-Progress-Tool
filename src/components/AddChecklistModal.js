@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
   const [courseRun, setCourseRun] = useState('');
   const [checklistID, setChecklistID] = useState('');
+  const [instruction, setInstruction] = useState('');
   const [questions, setQuestions] = useState(['']);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,7 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
     const newChecklistToSend = {
       CourseRun: courseRun,
       ChecklistID: checklistID,
+      Instruction: instruction,
       CourseCode: courseCode,
       Questions: questions,
     };
@@ -62,6 +64,7 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
         const newChecklist = {
           CourseRun: courseRun,
           ChecklistID: checklistID,
+          Instruction: instruction,
           CourseCode: courseCode,
           Questions: questions,
         };
@@ -98,6 +101,16 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
             value={checklistID}
             onChange={(e) => setChecklistID(e.target.value)}
             placeholder="Enter checklist ID"
+            required
+          />
+        </label>
+        <label>
+          Instruction:
+          <input
+            type="text"
+            value={instruction}
+            onChange={(e) => setInstruction(e.target.value)}
+            placeholder="Enter instruction"
             required
           />
         </label>

@@ -31,8 +31,8 @@ const AdminDashboard = () => {
       });
   }, [courseCode]);
 
-  const handleDelete = (checklistID) => {
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=deleteChecklist&checklistID=${checklistID}`;
+  const handleDelete = (checklistID, courseCode, courseRun) => {
+    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=deleteChecklist&checklistID=${checklistID}&courseCode=${courseCode}&courseRun=${courseRun}`;
     fetch(url, {
       method: 'POST', 
     })
@@ -115,7 +115,7 @@ const AdminDashboard = () => {
             <AdminChecklistCard 
               key={checklist.ChecklistID} 
               checklist={checklist}
-              handleDelete={handleDelete} 
+              handleDelete={() => handleDelete(checklist.ChecklistID, checklist.CourseCode, checklist.CourseRun)} 
             />
           ))
         ) : (
