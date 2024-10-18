@@ -80,7 +80,7 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
         </button>
         <h2>Course Run: {checklist.CourseRun}</h2>
         <p className="label">Checklist ID: {checklist.ChecklistID}</p>
-        <p className="label">{checklist.Instruction}</p>
+        <p className="label">Instruction: {checklist.Instruction}</p>
         <p className="label">Questions:</p>
         <div className="questions">
           <ul>

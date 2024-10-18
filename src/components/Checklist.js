@@ -4,12 +4,10 @@ import ProgressBar from './ProgressBar';
 
 const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   const [checklistItems, setChecklistItems] = useState([]);
+  const [instruction, setInstruction] = useState('');
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Console log the user_id
-  console.log('User ID:', user_id);
 
   // Fetch the checklist data
   useEffect(() => {
@@ -30,13 +28,14 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
           isChecked: JSON.parse(data.Checks)[index],
         }));
         setChecklistItems(parsedQuestions);
+        setInstruction(data.Instruction);
         setLoading(false);
       })
       .catch(error => {
         setError(error.message);
         setLoading(false);
       });
-  }, [courseCode, courseRun, checklistID]);
+  }, [courseCode, courseRun, checklistID, user_id]);
 
   // Handle checking/unchecking an item
   const handleCheck = (id, isChecked) => {
@@ -71,18 +70,18 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
       },
       body: JSON.stringify(payload),
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to update checklist');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data.message);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update checklist');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data.message);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   // Calculate progress
@@ -103,6 +102,7 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
 
   return (
     <div className="checklist-container">
+      {instruction && <p className="instruction-text">{instruction}</p>}
       {checklistItems.map(item => (
         <ChecklistItem
           key={item.id}
