@@ -18,7 +18,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch('/progress-tool/edX-Progress-Tool/server/index.php?method=register', {
+      const response = await fetch('/edX-Progress-Tool/server/index.php?method=register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

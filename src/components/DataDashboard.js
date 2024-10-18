@@ -28,7 +28,7 @@ const DataDashboard = () => {
   const [selectedChecklist, setSelectedChecklist] = useState(null);
 
   useEffect(() => {
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=getChecklistStats&courseCode=${courseCode}`;
+    const url = `/edX-Progress-Tool/server/index.php?method=getChecklistStats&courseCode=${courseCode}`;
     fetch(url)
       .then(response => {
         if (!response.ok) {

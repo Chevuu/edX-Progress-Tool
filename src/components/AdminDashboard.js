@@ -13,7 +13,7 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=getAllChecklistsByCourseCode&courseCode=${courseCode}`;
+    const url = `/edX-Progress-Tool/server/index.php?method=getAllChecklistsByCourseCode&courseCode=${courseCode}`;
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
   }, [courseCode]);
 
   const handleDelete = (checklistID, courseCode, courseRun) => {
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=deleteChecklist&checklistID=${checklistID}&courseCode=${courseCode}&courseRun=${courseRun}`;
+    const url = `/edX-Progress-Tool/server/index.php?method=deleteChecklist&checklistID=${checklistID}&courseCode=${courseCode}&courseRun=${courseRun}`;
     fetch(url, {
       method: 'POST', 
     })

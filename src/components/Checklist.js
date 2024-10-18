@@ -12,7 +12,7 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   // Fetch the checklist data
   useEffect(() => {
     // Construct the URL with query parameters
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=getChecklist&courseCode=${courseCode}&courseRun=${courseRun}&checklistID=${checklistID}&user_id=${user_id}`;
+    const url = `/edX-Progress-Tool/server/index.php?method=getChecklist&courseCode=${courseCode}&courseRun=${courseRun}&checklistID=${checklistID}&user_id=${user_id}`;
 
     fetch(url)
       .then(response => {
@@ -52,7 +52,7 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   // Update checks in the database
   const updateChecksInDatabase = (updatedChecks) => {
     // Construct the URL with method parameter
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=updateChecklist`;
+    const url = `/edX-Progress-Tool/server/index.php?method=updateChecklist`;
 
     // Prepare the payload
     const payload = {

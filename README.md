@@ -1,4 +1,4 @@
-# DelftXDev: Progress-Tool: ReactJS, Express, and MariaDB Application
+# DelftXTools: Progress-Tool: ReactJS, Express, and MariaDB Application
 
 ## Overview
 This project is a widget for an online course, designed to provide both student and admin panels. Students can use an interactive checklist to track their progress through course modules, while admins can manage and monitor student progress through a dashboard.

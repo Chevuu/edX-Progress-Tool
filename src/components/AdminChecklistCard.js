@@ -36,7 +36,7 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
   };
 
   const handleSave = () => {    
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=updateChecklistQuestions`;
+    const url = `/edX-Progress-Tool/server/index.php?method=updateChecklistQuestions`;
     const payload = {
       courseCode: checklist.CourseCode,
       courseRun: checklist.CourseRun,

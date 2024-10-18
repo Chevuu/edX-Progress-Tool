@@ -45,7 +45,7 @@ const AddChecklistModal = ({ onClose, onAddChecklist, courseCode }) => {
     };
   
     // Send the POST request
-    const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=createChecklist`;
+    const url = `/edX-Progress-Tool/server/index.php?method=createChecklist`;
     fetch(url, {
       method: 'POST',
       headers: {
