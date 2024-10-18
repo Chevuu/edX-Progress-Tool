@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$user = 'vukroot';
-$password = 'Aeghe+i1';
-$database = 'map';
+$user = 'ptadmin';
+$password = 'PT2024!U#';
+$database = 'progress_tool';
 
 $mysqli = new mysqli($host, $user, $password, $database);
 
