@@ -71,7 +71,7 @@ function getChecklist($mysqli) {
                 $defaultData = $defaultResult->fetch_assoc();
                 $Questions = $defaultData['Questions'];
                 $Checks = $defaultData['Checks'];
-                $Instruction = $defaultData['Instruction'];
+                $Instruction = $defaultData['Instruction'] ?? ''; // Handle NULL Instruction
 
                 // Insert a new checklist for the user including Instruction
                 $insertQuery = "INSERT INTO checklist (CourseRun, CourseCode, UserID, Questions, Checks, ChecklistID, Instruction) 
@@ -98,6 +98,7 @@ function getChecklist($mysqli) {
         } else {
             // Checklist exists for the user, return it
             $data = $result->fetch_assoc();
+            $data['Instruction'] = $data['Instruction'] ?? ''; // Handle NULL Instruction
             echo json_encode($data);
         }
     } else {
