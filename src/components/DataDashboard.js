@@ -108,16 +108,36 @@ const ChecklistStats = ({ checklist }) => {
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          font: {
+            size: 16 // Increase this value to make the legend text bigger
+          }
+        }
       },
       title: {
         display: true,
         text: `Statistics for Checklist ID: ${ChecklistID}`,
+        font: {
+          size: 18 // Increase this value to make the chart title text bigger
+        }
       },
     },
     scales: {
       x: {
+        ticks: {
+          font: {
+            size: 14 // Increase this value to make the x-axis labels bigger
+          }
+        },
         beginAtZero: true,
         max: TotalSubmissions,
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 14 // Increase this value to make the y-axis labels bigger
+          }
+        }
       },
     },
   };
