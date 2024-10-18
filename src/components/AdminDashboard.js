@@ -51,6 +51,10 @@ const AdminDashboard = () => {
       });
   };
 
+  const handleData = () => {
+    navigate(`/admin/${courseCode}/data`);
+  };
+
   const handleAddChecklist = () => {
     setShowModal(true);
   };
@@ -93,8 +97,9 @@ const AdminDashboard = () => {
     <div>
       <div className="dashboard-header">
         <h1>Checklists for Course: <span className="course-code">{courseCode}</span></h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-        <button className="add-checklist-btn" onClick={handleAddChecklist}>Add Checklist</button>
+        <button className="top-btn" onClick={handleLogout}>Logout</button>
+        <button className="top-btn" onClick={handleAddChecklist}>Add Checklist</button>
+        <button className="top-btn" onClick={handleData}>Data</button>
       </div>
       
       <div className="filter-container">

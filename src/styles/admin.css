@@ -34,7 +34,7 @@
     font-weight: bold;
   }
 
-  .logout-btn {
+  .top-btn {
     background-color: var(--tu-delft-blue);
     color: white;
     padding: 10px 15px;
@@ -45,21 +45,7 @@
     transition: background-color 0.3s ease;
   }
   
-  .logout-btn:hover {
-    background-color: #145a89;
-  }
-  
-  .add-checklist-btn {
-    background-color: var(--tu-delft-blue);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-checklist-btn:hover {
+  .top-btn:hover {
     background-color: #145a89;
   }
   
@@ -236,3 +222,73 @@
     list-style-type: disc;
     margin-bottom: 5px;
   }
+
+
+/* Header Buttons Container */
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Data Dashboard */
+.data-dashboard-container {
+  padding: 20px;
+}
+
+.data-dashboard {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.checklist-selector {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.checklist-selector h2 {
+  font-size: 1.5em;
+  color: var(--tu-delft-black);
+}
+
+.checklist-selector ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.checklist-selector li {
+  margin-bottom: 10px;
+}
+
+.checklist-selector button {
+  background-color: var(--tu-delft-blue);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.checklist-selector button:hover {
+  background-color: #145a89;
+}
+
+.checklist-stats {
+  flex: 3;
+}
+
+.checklist-stats h2 {
+  font-size: 1.5em;
+  color: var(--tu-delft-black);
+}
+
+.course-code {
+  color: var(--tu-delft-blue);
+  font-weight: bold;
+}
+
+.bar-chart {
+  max-width: 100%;
+  height: auto;
+}

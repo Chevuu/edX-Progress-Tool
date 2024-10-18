@@ -35,6 +35,9 @@ switch ($action) {
     case 'login':
         loginUser($mysqli);
         break;
+    case 'getChecklistStats':
+        getChecklistStats($mysqli);
+        break;
     default:
         http_response_code(400);
         echo json_encode(['error' => 'Invalid or missing method parameter']);
@@ -372,6 +375,59 @@ function createChecklist($mysqli) {
     } else {
         http_response_code(500);
         echo json_encode(['error' => 'Error saving checklist: ' . $mysqli->error]);
+    }
+}
+
+function getChecklistStats($mysqli) {
+    $courseCode = isset($_GET['courseCode']) ? $mysqli->real_escape_string($_GET['courseCode']) : null;
+
+    if (!$courseCode) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing courseCode parameter']);
+        return;
+    }
+
+    // Get all checklists for the course where UserID != 0
+    $query = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND UserID != '0'";
+    $result = $mysqli->query($query);
+
+    if ($result) {
+        $stats = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $checklistID = $row['ChecklistID'];
+            $userID = $row['UserID'];
+            $questions = json_decode($row['Questions'], true);
+            $checks = json_decode($row['Checks'], true);
+
+            if (!isset($stats[$checklistID])) {
+                $stats[$checklistID] = [
+                    'ChecklistID' => $checklistID,
+                    'CourseRun' => $row['CourseRun'],
+                    'Instruction' => $row['Instruction'],
+                    'Questions' => $questions,
+                    'Answers' => array_fill(0, count($questions), ['count' => 0]),
+                    'TotalSubmissions' => 0,
+                ];
+            }
+
+            $stats[$checklistID]['TotalSubmissions'] += 1;
+
+            // Count answers
+            foreach ($checks as $index => $checked) {
+                if ($checked) {
+                    $stats[$checklistID]['Answers'][$index]['count'] += 1;
+                }
+            }
+        }
+
+        // Convert stats to an array
+        $statsArray = array_values($stats);
+
+        echo json_encode($statsArray);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error fetching stats: ' . $mysqli->error]);
     }
 }
 ?>

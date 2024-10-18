@@ -3,10 +3,16 @@ import { HashRouter as Router, Route, Routes, Navigate, useParams } from 'react-
 import Checklist from './components/Checklist';
 import AdminDashboard from './components/AdminDashboard';
 import Login from './components/Login';
+import DataDashboard from './components/DataDashboard';
 import Register from './components/Register';
 import './App.css';
 import './styles/admin.css';
 import './styles/modal.css';
+
+function DataDashboardPage() {
+  const { courseCode } = useParams();
+  return <DataDashboard courseCode={courseCode} />;
+}
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Initialize as null (unknown)
@@ -47,6 +53,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin/:courseCode/data" element={
+          isAuthenticated ? <DataDashboardPage /> : <Navigate to="/login" replace />
+        } />
         <Route path="/admin/:courseCode" element={
           isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" replace />
         } />
