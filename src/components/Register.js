@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
 
-const Login = ({ setIsAuthenticated }) => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const response = await fetch('api/index.php?method=login', {
+      const response = await fetch('api/index.php?method=register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -20,24 +26,20 @@ const Login = ({ setIsAuthenticated }) => {
       const data = await response.json();
 
       if (response.ok) {
-        setIsAuthenticated(true);
-        const expiryTime = new Date().getTime() + 60 * 60 * 1000;
-        localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('sessionExpiry', expiryTime);
-        navigate(`/admin/${username}`);
+        navigate('/login');
       } else {
         setError(data.error);
       }
     } catch (err) {
-      setError('An error occurred during login.');
+      setError('An error occurred during registration.');
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Admin Login</h2>
+      <h2>Create Account</h2>
       {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         {/* Username field */}
         <label>
           Username:
@@ -59,13 +61,23 @@ const Login = ({ setIsAuthenticated }) => {
             required
           />
         </label>
-        <button type="submit">Login</button>
+        {/* Confirm Password field */}
+        <label>
+          Confirm Password:
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </label>
+        <button type="submit">Register</button>
       </form>
       <p>
-        Don't have an account? <Link to="/register">Create Account</Link>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
   );
 };
 
-export default Login;
+export default Register;
