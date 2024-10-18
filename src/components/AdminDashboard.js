@@ -97,9 +97,11 @@ const AdminDashboard = () => {
     <div>
       <div className="dashboard-header">
         <h1>Checklists for Course: <span className="course-code">{courseCode}</span></h1>
-        <button className="top-btn" onClick={handleLogout}>Logout</button>
+        <div className="header-buttons">
         <button className="top-btn" onClick={handleAddChecklist}>Add Checklist</button>
         <button className="top-btn" onClick={handleData}>Data</button>
+        <button className="top-btn" onClick={handleLogout}>Logout</button>
+      </div>
       </div>
       
       <div className="filter-container">

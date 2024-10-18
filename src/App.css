@@ -20,6 +20,11 @@
   padding: 20px;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
 h1 {
   font-size: 2em;
   color: var(--tu-delft-black);
