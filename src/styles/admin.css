@@ -279,13 +279,8 @@
 }
 
 .checklist-stats h2 {
-  font-size: 1.5em;
+  font-size: 3em;
   color: var(--tu-delft-black);
-}
-
-.course-code {
-  color: var(--tu-delft-blue);
-  font-weight: bold;
 }
 
 .bar-chart {
