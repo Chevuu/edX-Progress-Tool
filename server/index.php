@@ -71,9 +71,11 @@ function getChecklist($mysqli) {
                 $defaultData = $defaultResult->fetch_assoc();
                 $Questions = $defaultData['Questions'];
                 $Checks = $defaultData['Checks'];
+                $Instruction = $defaultData['Instruction'];
 
-                // Insert a new checklist for the user
-                $insertQuery = "INSERT INTO checklist (CourseRun, CourseCode, UserID, Questions, Checks, ChecklistID) VALUES ('$courseRun', '$courseCode', '$user_id', '$Questions', '$Checks', '$checklistID')";
+                // Insert a new checklist for the user including Instruction
+                $insertQuery = "INSERT INTO checklist (CourseRun, CourseCode, UserID, Questions, Checks, ChecklistID, Instruction) 
+                                VALUES ('$courseRun', '$courseCode', '$user_id', '$Questions', '$Checks', '$checklistID', '$Instruction')";
                 if ($mysqli->query($insertQuery)) {
                     // Retrieve the newly created checklist
                     $newChecklistQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '$user_id'";
