@@ -102,7 +102,7 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
 
   return (
     <div className="checklist-container">
-      {instruction && <p className="instruction-text">{instruction}</p>}
+      {instruction && <p className="user-instruction-text">{instruction}</p>}
       {checklistItems.map(item => (
         <ChecklistItem
           key={item.id}
