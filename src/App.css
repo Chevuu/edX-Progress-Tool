@@ -55,6 +55,18 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Instruction styling */
+.instruction-text {
+  font-size: 1.2em;
+  color: var(--tu-delft-black);
+  background-color: var(--tu-delft-grey);
+  border-left: 4px solid var(--tu-delft-blue);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Checklist item */
 .checklist-item {
   display: flex;

@@ -103,6 +103,7 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
   return (
     <div className="checklist-container">
       {instruction && <p className="instruction-text">{instruction}</p>}
+      console.log('Instruction:', instruction); // Ensure this logs the correct instruction
       {checklistItems.map(item => (
         <ChecklistItem
           key={item.id}

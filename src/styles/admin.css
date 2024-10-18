@@ -129,7 +129,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: calc(20%);
-    height: 400px;
+    height: 375px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -149,6 +149,17 @@
     color: var(--tu-delft-black);
     font-size: 1.1em;
     margin-bottom: 10px;
+  }
+
+  /* Instruction Styling */
+  .instruction-text {
+    font-size: 1.2em;
+    color: var(--tu-delft-black);
+    background-color: var(--tu-delft-grey);
+    border-left: 5px solid var(--tu-delft-blue);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
   }
   
   /* Questions Section */
