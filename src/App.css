@@ -56,7 +56,7 @@ h1 {
 }
 
 /* Instruction styling */
-.instruction-text {
+.user-instruction-text {
   font-size: 1.2em;
   color: var(--tu-delft-black);
   background-color: var(--tu-delft-grey);
