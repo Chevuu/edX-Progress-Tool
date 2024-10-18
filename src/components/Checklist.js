@@ -27,10 +27,8 @@ const Checklist = ({ courseCode, courseRun, checklistID, user_id }) => {
           task: question,
           isChecked: JSON.parse(data.Checks)[index],
         }));
-        console.log('Data:', data);
         setChecklistItems(parsedQuestions);
         setInstruction(data.Instruction);
-        console.log('Instruction:', instruction);
         setLoading(false);
       })
       .catch(error => {
