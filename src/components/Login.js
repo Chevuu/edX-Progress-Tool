@@ -12,7 +12,7 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('api/index.php?method=login', {
+      const response = await fetch('/progress-tool/edX-Progress-Tool/server/index.php?method=login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
