@@ -1,11 +1,10 @@
 <?php
 
-$host = 'localhost';
-$user = 'ptadmin';
-$password = 'PT2024!U#';
-$database = 'progress_tool';
+// Include the configuration file
+$config = require __DIR__ . '/server/config.php';
 
-$mysqli = new mysqli($host, $user, $password, $database);
+// Use the configuration to connect to the database
+$mysqli = new mysqli($config['host'], $config['user'], $config['password'], $config['database']);
 
 if ($mysqli->connect_errno) {
     http_response_code(500);
