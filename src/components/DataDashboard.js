@@ -169,14 +169,27 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          font: {
+            size: 15
+          }
+        }
       },
       title: {
         display: true,
         text: 'Total Submissions per Checklist',
+        font: {
+          size: 17
+        }
       },
     },
     scales: {
       x: {
+        ticks: {
+          font: {
+            size: 14
+          }
+        },
         beginAtZero: true,
       },
       y: {

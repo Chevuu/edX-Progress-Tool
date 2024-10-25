@@ -313,4 +313,9 @@
 
 .checklist-histogram {
   margin-top: 20px;
+  height: 350px;
+}
+
+.checklist-histogram canvas {
+  height: 100% !important;
 }
