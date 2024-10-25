@@ -131,7 +131,7 @@ const ChecklistStats = ({ checklist }) => {
           }
         },
         beginAtZero: true,
-        max: TotalSubmis - 1,
+        max: TotalSubmissions - 1,
       },
       y: {
         ticks: {
