@@ -131,7 +131,7 @@ const ChecklistStats = ({ checklist }) => {
           }
         },
         beginAtZero: true,
-        max: TotalSubmissions,
+        max: TotalSubmis - 1,
       },
       y: {
         ticks: {
@@ -146,7 +146,7 @@ const ChecklistStats = ({ checklist }) => {
   return (
     <div>
       <h2>Checklist ID: {ChecklistID}</h2>
-      <p>Total Submissions: {TotalSubmissions}</p>
+      <p>Total Submissions: {TotalSubmissions - 1}</p>
       <Bar data={data} options={options} />
     </div>
   );
@@ -158,7 +158,7 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
     datasets: [
       {
         label: 'Number of Submissions',
-        data: stats.map(item => item.TotalSubmissions),
+        data: stats.map(item => item.TotalSubmissions - 1),
         backgroundColor: 'rgba(0, 166, 214, 0.6)',
         borderColor: 'rgba(0, 166, 214, 1)',
         borderWidth: 1,
