@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AdminChecklistCard from './AdminChecklistCard';
 import AddChecklistModal from './AddChecklistModal';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const { courseCode } = useParams();
@@ -98,6 +99,9 @@ const AdminDashboard = () => {
       <div className="dashboard-header">
         <h1>Checklists for Course: <span className="course-code">{courseCode}</span></h1>
         <div className="header-buttons">
+        <button className="top-btn" onClick={toggleDarkMode}>
+          {isDarkMode ? <FaSun /> : <FaMoon />}
+        </button>
         <button className="top-btn" onClick={handleAddChecklist}>Add Checklist</button>
         <button className="top-btn" onClick={handleData}>Data</button>
         <button className="top-btn" onClick={handleLogout}>Logout</button>

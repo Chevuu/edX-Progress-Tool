@@ -15,7 +15,8 @@ function DataDashboardPage() {
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(null); // Initialize as null (unknown)
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   function ChecklistPage() {
     const { courseCode, courseRun, checklistID, user_id } = useParams();
@@ -42,27 +43,42 @@ function App() {
     } else {
       setIsAuthenticated(false);
     }
+
+    const darkModeSetting = localStorage.getItem('isDarkMode');
+    if (darkModeSetting !== null) {
+      setIsDarkMode(darkModeSetting === 'true');
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', isDarkMode);
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prevMode => !prevMode);
+  };
 
   if (isAuthenticated === null) {
     return null;
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/admin/:courseCode/data" element={
-          isAuthenticated ? <DataDashboardPage /> : <Navigate to="/login" replace />
-        } />
-        <Route path="/admin/:courseCode" element={
-          isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" replace />
-        } />
-        <Route path="/:courseCode/:courseRun/:checklistID/:user_id" element={<ChecklistPage />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
+    <div className={isDarkMode ? 'dark-mode' : ''}>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/admin/:courseCode/data" element={
+            isAuthenticated ? <DataDashboardPage /> : <Navigate to="/login" replace />
+          } />
+          <Route path="/admin/:courseCode" element={
+            isAuthenticated ? <AdminDashboard isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} /> : <Navigate to="/login" replace />
+          } />
+          <Route path="/:courseCode/:courseRun/:checklistID/:user_id" element={<ChecklistPage />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

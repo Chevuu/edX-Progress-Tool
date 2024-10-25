@@ -1,247 +1,245 @@
+/* Define light theme variables */
 :root {
-    --tu-delft-blue: #00a6d6;
-    --tu-delft-black: #231f20;
-    --tu-delft-grey: #f0f0f0;
-    --delete-red: #e74c3c;
-  }
-  
-  /* General styling */
-  body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .App {
-    text-align: center;
-    background-color: var(--tu-delft-grey);
-    padding: 20px;
-  }
-  
-  /* Dashboard header */
-  .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 2em;
-    color: var(--tu-delft-black);
-  }
-  
-  .course-code {
-    color: var(--tu-delft-blue);
-    font-weight: bold;
-  }
+  --background-color: #ffffff;
+  --text-color: #231f20;
+  --primary-color: #00a6d6;
+  --secondary-color: #f0f0f0;
+  --border-color: #00a6d6;
+  --delete-color: #e74c3c;
+  --input-background: #ffffff;
+}
 
-  .top-btn {
-    background-color: var(--tu-delft-blue);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .top-btn:hover {
-    background-color: #145a89;
-  }
-  
-  /* Filter container */
-  .filter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .filter-container label {
-    font-size: 1em;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .filter-container input {
-    padding: 10px;
-    font-size: 1em;
-    border: 2px solid var(--tu-delft-blue);
-    border-radius: 5px;
-    width: 200px;
-    margin-right: 10px;
-  }
-  
-  /* Filter and Clear Buttons */
-  .filter-container button {
-    background-color: var(--tu-delft-blue);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  .filter-container button:hover {
-    background-color: #145a89;
-  }
+/* Define dark theme variables */
+.dark-mode {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --primary-color: #00a6d6;
+  --secondary-color: #1e1e1e;
+  --border-color: #00a6d6;
+  --delete-color: #e74c3c;
+  --input-background: #1e1e1e;
+}
 
-  .filter-btn {
-    background-color: var(--delete-red);
-  }
-  
-  .filter-btn:hover {
-    background-color: #c0392b;
-  }
-  
-  .filter-container button:hover {
-    background-color: #145a89;
-  }
-  
-  /* Checklist Grid */
-  .admin-checklist-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .admin-checklist-card {
-    background-color: white;
-    border: 2px solid var(--tu-delft-blue);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: calc(20%);
-    height: 400px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    margin-bottom: 10px;
-  }
-  
-  .admin-checklist-card h2 {
-    margin-top: 0;
-    color: var(--tu-delft-black);
-    font-size: 1.5em;
-  }
-  
-  .admin-checklist-card .label {
-    font-weight: bold;
-    color: var(--tu-delft-black);
-    font-size: 1.1em;
-    margin-bottom: 10px;
-  }
+/* Apply background and text colors globally */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
 
-  /* Instruction Styling */
-  .instruction-text {
-    font-size: 1.2em;
-    color: var(--tu-delft-black);
-    background-color: var(--tu-delft-grey);
-    border-left: 5px solid var(--tu-delft-blue);
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
+/* Dashboard header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
 
-  .instruction-edit {
-    margin-bottom: 15px;
-  }
-  
-  .instruction-edit label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: var(--tu-delft-black);
-  }
-  
-  .instruction-edit textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--tu-delft-blue);
-    border-radius: 5px;
-    font-size: 1em;
-  }
-  
-  /* Questions Section */
-  .admin-checklist-card .questions {
-    flex-grow: 1;
-    overflow-y: auto;
-    max-height: 113px;
-    min-height: 113px;
-    border: 1px solid var(--tu-delft-blue);
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-  }
-  
-  .admin-checklist-card .questions ul {
-    margin-top: 10px;
-    padding-left: 20px;
-  }
-  
-  .admin-checklist-card .questions ul li {
-    list-style-type: disc;
-    margin-bottom: 5px;
-  }
-  
-  /* Buttons */
-  .admin-checklist-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: auto;
-    padding-bottom: 5px;
-  }
-  
-  .edit-btn {
-    background-color: var(--tu-delft-blue);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    flex: 1;
-    text-align: center;
-  }
-  
-  .edit-btn:hover {
-    background-color: #145a89;
-  }
-  
-  /* Delete Button in Top Right */
-  .delete-btn-top-right {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: var(--delete-red);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8em;
-    cursor: pointer;
-  }
-  
-  .delete-btn-top-right:hover {
-    background-color: #c0392b;
-  }
-  
-  /* Scrollable Questions */
-  .admin-checklist-card .questions ul {
-    margin-top: 10px;
-    padding-left: 20px;
-  }
-  
-  .admin-checklist-card .questions ul li {
-    list-style-type: disc;
-    margin-bottom: 5px;
-  }
+/* Update elements to use the new variables */
+h1 {
+  font-size: 2em;
+  color: var(--text-color);
+}
 
+.course-code {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Buttons */
+.top-btn {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.top-btn:hover {
+  background-color: #145a89;
+}
+
+/* Filter container */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-container label {
+  font-size: 1em;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.filter-container input {
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  width: 200px;
+  margin-right: 10px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.filter-container button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.filter-btn {
+  background-color: var(--delete-color);
+}
+
+.filter-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Checklist Grid */
+.admin-checklist-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 20px;
+}
+
+.admin-checklist-card {
+  background-color: var(--secondary-color);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(20%);
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.admin-checklist-card h2 {
+  margin-top: 0;
+  color: var(--text-color);
+  font-size: 1.5em;
+}
+
+.admin-checklist-card .label {
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+/* Instruction Styling */
+.instruction-text {
+  font-size: 1.2em;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border-left: 5px solid var(--primary-color);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.instruction-edit {
+  margin-bottom: 15px;
+}
+
+.instruction-edit label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.instruction-edit textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+/* Questions Section */
+.admin-checklist-card .questions {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 113px;
+  min-height: 113px;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: var(--background-color);
+}
+
+.admin-checklist-card .questions ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.admin-checklist-card .questions ul li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+/* Buttons */
+.admin-checklist-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-bottom: 5px;
+}
+
+.edit-btn {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+}
+
+.edit-btn:hover {
+  background-color: #145a89;
+}
+
+/* Delete Button in Top Right */
+.delete-btn-top-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--delete-color);
+  color: var(--text-color);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.delete-btn-top-right:hover {
+  background-color: #c0392b;
+}
 
 /* Header Buttons Container */
 .header-buttons {
@@ -267,7 +265,7 @@
 
 .checklist-selector h2 {
   font-size: 1.5em;
-  color: var(--tu-delft-black);
+  color: var(--text-color);
 }
 
 .checklist-selector ul {
@@ -280,8 +278,8 @@
 }
 
 .checklist-selector button {
-  background-color: var(--tu-delft-blue);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   padding: 10px;
   border-radius: 5px;
   border: none;
@@ -299,7 +297,7 @@
 
 .checklist-stats h2 {
   font-size: 1.5em;
-  color: var(--tu-delft-black);
+  color: var(--text-color);
 }
 
 .bar-chart {
