@@ -32,6 +32,7 @@
   .course-code {
     color: var(--tu-delft-blue);
     font-weight: bold;
+    margin-top: 0;
   }
 
   .top-btn {
