@@ -74,6 +74,7 @@ const DataDashboard = () => {
               </li>
             ))}
           </ul>
+          <ChecklistSubmissionsHistogram stats={stats} />
         </div>
         <div className="checklist-stats">
           {selectedChecklist ? (
@@ -146,6 +147,51 @@ const ChecklistStats = ({ checklist }) => {
     <div>
       <h2>Checklist ID: {ChecklistID}</h2>
       <p>Total Submissions: {TotalSubmissions}</p>
+      <Bar data={data} options={options} />
+    </div>
+  );
+};
+
+const ChecklistSubmissionsHistogram = ({ stats }) => {
+  const data = {
+    labels: stats.map(item => `Checklist ${item.ChecklistID}`),
+    datasets: [
+      {
+        label: 'Number of Submissions',
+        data: stats.map(item => item.TotalSubmissions),
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Total Submissions per Checklist',
+      },
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 14,
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="checklist-histogram">
       <Bar data={data} options={options} />
     </div>
   );
