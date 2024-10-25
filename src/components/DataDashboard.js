@@ -61,7 +61,7 @@ const DataDashboard = () => {
 
   return (
     <div className="data-dashboard-container">
-      <h1>Data for Course: <span className="course-code">{courseCode}</span></h1>
+      <h1 className="data-dashboard-header">Data for Course: <span className="course-code">{courseCode}</span></h1>
       <div className="data-dashboard">
         <div className="checklist-selector">
           <h2>Select Checklist</h2>
