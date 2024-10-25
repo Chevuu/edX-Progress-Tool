@@ -287,3 +287,7 @@
   max-width: 100%;
   height: auto;
 }
+
+.checklist-histogram {
+  margin-top: 20px;
+}
