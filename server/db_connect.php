@@ -1,7 +1,7 @@
 <?php
 
 // Include the configuration file
-$config = require __DIR__ . '/server/config.php';
+$config = require __DIR__ . '/config.php';
 
 // Use the configuration to connect to the database
 $mysqli = new mysqli($config['host'], $config['user'], $config['password'], $config['database']);
