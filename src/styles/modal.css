@@ -1,4 +1,24 @@
-/* Modal Overlay */
+:root {
+  --modal-background: #ffffff;
+  --modal-text-color: #231f20;
+}
+
+.dark-mode {
+  --modal-background: #1e1e1e;
+  --modal-text-color: #e0e0e0;
+}
+
+/* Apply variables */
+.modal {
+  background-color: var(--modal-background);
+  color: var(--modal-text-color);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  z-index: 1001;
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -10,16 +30,6 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  /* Modal Content */
-  .modal {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
-    z-index: 1001;
   }
   
   .modal h2 {

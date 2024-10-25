@@ -5,6 +5,13 @@
   --delete-red: #e74c3c;
 }
 
+.dark-mode {
+  --tu-delft-blue: #00a6d6;
+  --tu-delft-black: #e0e0e0;
+  --tu-delft-grey: #121212;
+  --delete-red: #e74c3c;
+}
+
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -60,7 +67,7 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Instruction styling */
+/* Instruction styling */x
 .user-instruction-text {
   font-size: 1.2em;
   color: var(--tu-delft-black);
