@@ -296,6 +296,7 @@ function updateChecklistQuestions($mysqli) {
     $courseRun = isset($input['courseRun']) ? $mysqli->real_escape_string($input['courseRun']) : null;
     $checklistID = isset($input['checklistID']) ? $mysqli->real_escape_string($input['checklistID']) : null;
     $Questions = isset($input['Questions']) ? $input['Questions'] : null;
+    $Instruction = isset($input['instruction']) ? $mysqli->real_escape_string($input['instruction']) : '';
 
     if (!$courseCode || !$courseRun || !$checklistID || $Questions === null) {
         http_response_code(400);
@@ -330,7 +331,7 @@ function updateChecklistQuestions($mysqli) {
             $QuestionsJSON = $mysqli->real_escape_string(json_encode($Questions));
             $ChecksJSON = $mysqli->real_escape_string(json_encode($newChecks));
 
-            $updateQuery = "UPDATE checklist SET Questions = '$QuestionsJSON', Checks = '$ChecksJSON' WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '$UserID'";
+            $updateQuery = "UPDATE checklist SET Questions = '$QuestionsJSON', Checks = '$ChecksJSON', Instruction = '$Instruction' WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '$UserID'";
 
             if (!$mysqli->query($updateQuery)) {
                 http_response_code(500);
