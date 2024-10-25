@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 
 const AdminChecklistCard = ({ checklist, handleDelete }) => {
-   const initialQuestions = (() => {
+  const initialQuestions = (() => {
     if (Array.isArray(checklist.Questions)) {
-      // If Questions is already an array, use it directly
       return checklist.Questions;
     } else {
-      // If Questions is a JSON string, parse it
       try {
         const parsed = JSON.parse(checklist.Questions);
         return Array.isArray(parsed) ? parsed : [];
@@ -17,8 +15,8 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
   })();
 
   const [questions, setQuestions] = useState(initialQuestions);
+  const [instruction, setInstruction] = useState(checklist.Instruction || '');
   const [isEditing, setIsEditing] = useState(false);
-
 
   const handleAddQuestion = () => {
     setQuestions([...questions, ""]);
@@ -35,17 +33,17 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
     setQuestions(updatedQuestions);
   };
 
-  const handleSave = () => {    
+  const handleSave = () => {
     const url = `/progress-tool/edX-Progress-Tool/server/index.php?method=updateChecklistQuestions`;
     const payload = {
       courseCode: checklist.CourseCode,
       courseRun: checklist.CourseRun,
-      instruction: checklist.Instruction,
+      instruction: instruction,
       checklistID: checklist.ChecklistID,
       Questions: questions,
     };
     fetch(url, {
-      method: 'POST', // Use POST instead of PUT
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -80,9 +78,21 @@ const AdminChecklistCard = ({ checklist, handleDelete }) => {
         </button>
         <h2>Course Run: {checklist.CourseRun}</h2>
         <p className="label">Checklist ID: {checklist.ChecklistID}</p>
-        {checklist.Instruction && <p className="instruction-text">
-          <strong>Instruction:</strong> {checklist.Instruction}
-        </p>}
+        {isEditing ? (
+          <div className="instruction-edit">
+            <label htmlFor="instruction-input"><strong>Instruction:</strong></label>
+            <textarea
+              id="instruction-input"
+              value={instruction}
+              onChange={(e) => setInstruction(e.target.value)}
+              rows={3}
+            />
+          </div>
+        ) : (
+          instruction && <p className="instruction-text">
+            <strong>Instruction:</strong> {instruction}
+          </p>
+        )}
         <p className="label">Questions:</p>
         <div className="questions">
           <ul>

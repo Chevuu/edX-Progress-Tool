@@ -147,6 +147,25 @@
     border-radius: 5px;
     margin-bottom: 15px;
   }
+
+  .instruction-edit {
+    margin-bottom: 15px;
+  }
+  
+  .instruction-edit label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--tu-delft-black);
+  }
+  
+  .instruction-edit textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--tu-delft-blue);
+    border-radius: 5px;
+    font-size: 1em;
+  }
   
   /* Questions Section */
   .admin-checklist-card .questions {

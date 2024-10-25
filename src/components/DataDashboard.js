@@ -159,8 +159,8 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
       {
         label: 'Number of Submissions',
         data: stats.map(item => item.TotalSubmissions),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(0, 166, 214, 0.6)',
+        borderColor: 'rgba(0, 166, 214, 1)',
         borderWidth: 1,
       },
     ],
