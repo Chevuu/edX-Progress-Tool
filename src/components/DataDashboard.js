@@ -169,6 +169,8 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
   const maxValue = Math.max(...stats.map(item => item.TotalSubmissions - 1));
   const stepSize = maxValue > 10 ? Math.ceil(maxValue / 10) : 1;
 
+  console.log("Step size: " + stepSize);
+
   const options = {
     plugins: {
       legend: {
