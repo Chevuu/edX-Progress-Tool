@@ -91,6 +91,9 @@ const DataDashboard = () => {
 const ChecklistStats = ({ checklist }) => {
   const { ChecklistID, Questions, Answers, TotalSubmissions } = checklist;
 
+  const maxValue = Math.max(...Answers.map(answer => answer.count));
+  const stepSize = maxValue > 10 ? Math.ceil(maxValue / 10) : 1;
+
   const data = {
     labels: Questions,
     datasets: [
@@ -111,7 +114,7 @@ const ChecklistStats = ({ checklist }) => {
         position: 'top',
         labels: {
           font: {
-            size: 16 // Increase this value to make the legend text bigger
+            size: 16
           }
         }
       },
@@ -119,7 +122,7 @@ const ChecklistStats = ({ checklist }) => {
         display: true,
         text: `Statistics for Checklist ID: ${ChecklistID}`,
         font: {
-          size: 18 // Increase this value to make the chart title text bigger
+          size: 18
         }
       },
     },
@@ -127,8 +130,9 @@ const ChecklistStats = ({ checklist }) => {
       x: {
         ticks: {
           font: {
-            size: 14 // Increase this value to make the x-axis labels bigger
-          }
+            size: 14
+          },
+          stepSize: stepSize,
         },
         beginAtZero: true,
         max: TotalSubmissions - 1,
@@ -136,7 +140,7 @@ const ChecklistStats = ({ checklist }) => {
       y: {
         ticks: {
           font: {
-            size: 14 // Increase this value to make the y-axis labels bigger
+            size: 14
           }
         }
       },
@@ -165,11 +169,6 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
       },
     ],
   };
-
-  const maxValue = Math.max(...stats.map(item => item.TotalSubmissions - 1));
-  const stepSize = maxValue > 10 ? Math.ceil(maxValue / 10) : 1;
-
-  console.log("Step size: " + stepSize);
 
   const options = {
     plugins: {
@@ -203,7 +202,6 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
           font: {
             size: 14,
           },
-          stepSize: stepSize,
           beginAtZero: true,
         },
       },
