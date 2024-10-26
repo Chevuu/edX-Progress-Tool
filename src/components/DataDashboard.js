@@ -61,7 +61,7 @@ const DataDashboard = () => {
 
   return (
     <div className="data-dashboard-container">
-      <h1>Data for Course: <span className="course-code">{courseCode}</span></h1>
+      <h1 className="data-dashboard-header">Data for Course: <span className="course-code">{courseCode}</span></h1>
       <div className="data-dashboard">
         <div className="checklist-selector">
           <h2>Select Checklist</h2>
@@ -131,7 +131,7 @@ const ChecklistStats = ({ checklist }) => {
           }
         },
         beginAtZero: true,
-        max: TotalSubmissions,
+        max: TotalSubmissions - 1,
       },
       y: {
         ticks: {
@@ -146,7 +146,7 @@ const ChecklistStats = ({ checklist }) => {
   return (
     <div>
       <h2>Checklist ID: {ChecklistID}</h2>
-      <p>Total Submissions: {TotalSubmissions}</p>
+      <p>Total Submissions: {TotalSubmissions - 1}</p>
       <Bar data={data} options={options} />
     </div>
   );
@@ -158,7 +158,7 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
     datasets: [
       {
         label: 'Number of Submissions',
-        data: stats.map(item => item.TotalSubmissions),
+        data: stats.map(item => item.TotalSubmissions - 1),
         backgroundColor: 'rgba(0, 166, 214, 0.6)',
         borderColor: 'rgba(0, 166, 214, 1)',
         borderWidth: 1,
@@ -170,14 +170,27 @@ const ChecklistSubmissionsHistogram = ({ stats }) => {
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          font: {
+            size: 15
+          }
+        }
       },
       title: {
         display: true,
         text: 'Total Submissions per Checklist',
+        font: {
+          size: 17
+        }
       },
     },
     scales: {
       x: {
+        ticks: {
+          font: {
+            size: 14
+          }
+        },
         beginAtZero: true,
       },
       y: {

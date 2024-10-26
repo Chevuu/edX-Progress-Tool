@@ -258,6 +258,10 @@ h1 {
   padding: 20px;
 }
 
+.data-dashboard-header {
+  margin-bottom: 0;
+}
+
 .checklist-selector {
   flex: 1;
   margin-right: 20px;
@@ -307,4 +311,9 @@ h1 {
 
 .checklist-histogram {
   margin-top: 20px;
+  height: 300px;
+}
+
+.checklist-histogram canvas {
+  height: 100% !important;
 }
