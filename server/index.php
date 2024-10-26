@@ -398,7 +398,6 @@ function getChecklistStats($mysqli) {
         echo json_encode(['error' => 'Error fetching stats: ' . $mysqli->error]);
     }
 }
-?>
 
 function createChecklist($mysqli) {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -432,3 +431,4 @@ function createChecklist($mysqli) {
         echo json_encode(['error' => 'Error saving checklist: ' . $mysqli->error]);
     }
 }
+?>
