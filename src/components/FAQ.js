@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/faq.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const navigate = useNavigate();
 
   const questionsAnswers = [
     {
@@ -31,8 +34,15 @@ function FAQ() {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+  const handleBack = () => {
+    navigate('/admin/yourCourseCode'); // Replace 'yourCourseCode' with the actual course code or route
+  };
+
   return (
     <div className="faq-container">
+      <button className="back-button" onClick={handleBack}>
+        <FaArrowLeft className="back-icon" /> Back to Dashboard
+      </button>
       <h1>FAQ</h1>
       <div className="faq-list">
         {questionsAnswers.map((item, index) => (
