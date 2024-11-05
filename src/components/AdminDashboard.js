@@ -86,6 +86,10 @@ const AdminDashboard = ({ isDarkMode, toggleDarkMode }) => {
     navigate('/login', { replace: true });
   };
 
+  const handleFAQ = () => {
+    navigate('/admin/faq');
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -102,6 +106,7 @@ const AdminDashboard = ({ isDarkMode, toggleDarkMode }) => {
           <button className="top-btn" onClick={handleAddChecklist}>Add Checklist</button>
           <button className="top-btn" onClick={handleData}>Data</button>
           <button className="top-btn" onClick={handleLogout}>Logout</button>
+          <button className="top-btn" onClick={handleFAQ}>Help</button>
           <button className="top-btn" onClick={toggleDarkMode}>
             {isDarkMode ? <FaSun /> : <FaMoon />}
           </button>

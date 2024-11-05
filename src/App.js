@@ -5,6 +5,7 @@ import AdminDashboard from './components/AdminDashboard';
 import Login from './components/Login';
 import DataDashboard from './components/DataDashboard';
 import Register from './components/Register';
+import FAQ from './components/FAQ';
 import './App.css';
 import './styles/admin.css';
 import './styles/modal.css';
@@ -76,6 +77,12 @@ function App() {
           } />
           <Route path="/:courseCode/:courseRun/:checklistID/:user_id" element={<ChecklistPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route
+            path="/admin/faq"
+            element={
+              isAuthenticated ? <FAQ /> : <Navigate to="/login" replace />
+            }
+          />
         </Routes>
       </Router>
     </div>
