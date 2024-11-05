@@ -58,7 +58,8 @@ function registerUser($mysqli) {
         return;
     }
 
-    // Check if username exists
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $mysqli->prepare("SELECT id FROM users WHERE username = ?");
     if (!$stmt) {
         http_response_code(500);
@@ -70,32 +71,40 @@ function registerUser($mysqli) {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Username already exists.']);
         $stmt->close();
-        return;
-    }
-    $stmt->close();
+        $stmt = $mysqli->prepare("UPDATE users SET password_hash = ? WHERE username = ?");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Database error: ' . $mysqli->error]);
+            return;
+        }
+        $stmt->bind_param('ss', $password_hash, $username);
 
-    // Hash password
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // Insert new user
-    $stmt = $mysqli->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-    if (!$stmt) {
-        http_response_code(500);
-        echo json_encode(['error' => 'Database error: ' . $mysqli->error]);
-        return;
-    }
-    $stmt->bind_param('ss', $username, $password_hash);
-
-    if ($stmt->execute()) {
-        echo json_encode(['message' => 'User registered successfully.']);
+        if ($stmt->execute()) {
+            echo json_encode(['message' => 'Password updated successfully.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error updating password: ' . $stmt->error]);
+        }
+        $stmt->close();
     } else {
-        http_response_code(500);
-        echo json_encode(['error' => 'Error registering user: ' . $stmt->error]);
+        $stmt->close();
+        $stmt = $mysqli->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Database error: ' . $mysqli->error]);
+            return;
+        }
+        $stmt->bind_param('ss', $username, $password_hash);
+
+        if ($stmt->execute()) {
+            echo json_encode(['message' => 'User registered successfully.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error registering user: ' . $stmt->error]);
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 
 function loginUser($mysqli) {
