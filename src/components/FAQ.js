@@ -7,6 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const { courseCode } = useParams();
 
@@ -126,37 +127,77 @@ function FAQ() {
     },
   ];
 
-  const toggleQuestion = (index) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+    setActiveIndex(null);
   };
 
-  const handleBack = () => {
-    navigate(`/admin/${courseCode}`);
-  };
+  const filteredQuestions = questionsAnswers
+    .map((item, index) => ({ ...item, originalIndex: index }))
+    .filter((item) =>
+      item.question.toLowerCase().includes(searchQuery) ||
+      (typeof item.answer === 'string'
+        ? item.answer.toLowerCase().includes(searchQuery)
+        : // If answer is JSX, convert it to string for searching
+          (item.answer.props.children || '')
+            .toString()
+            .toLowerCase()
+            .includes(searchQuery))
+    )
+    .sort((a, b) => {
+      const aQuestion = a.question.toLowerCase();
+      const bQuestion = b.question.toLowerCase();
+      const aIncludes = aQuestion.includes(searchQuery);
+      const bIncludes = bQuestion.includes(searchQuery);
+      if (aIncludes && !bIncludes) return -1;
+      if (!aIncludes && bIncludes) return 1;
+      return a.originalIndex - b.originalIndex;
+    });
 
-  return (
-    <div className="faq-container">
-      <button className="back-button" onClick={handleBack}>
-        <FaArrowLeft className="back-icon" /> Back to Dashboard
-      </button>
-      <h1>FAQ</h1>
-      <div className="faq-list">
-        {questionsAnswers.map((item, index) => (
-          <div
-            key={index}
-            className={`faq-item ${activeIndex === index ? 'active' : ''}`}
-          >
-            <div className="faq-question" onClick={() => toggleQuestion(index)}>
-              {item.question}
-            </div>
-            {activeIndex === index && (
-              <div className="faq-answer">{item.answer}</div>
-            )}
-          </div>
-        ))}
+    const toggleQuestion = (index) => {
+      setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    };
+  
+    const handleBack = () => {
+      navigate(`/admin/${courseCode}`);
+    };
+  
+    return (
+      <div className="faq-container">
+        <button className="back-button" onClick={handleBack}>
+          <FaArrowLeft className="back-icon" /> Back to Dashboard
+        </button>
+        <h1>FAQ</h1>
+        <div className="search-bar-container">
+          <input
+            type="text"
+            className="search-bar"
+            placeholder="Search FAQs..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="faq-list">
+          {filteredQuestions.length > 0 ? (
+            filteredQuestions.map((item, index) => (
+              <div
+                key={index}
+                className={`faq-item ${activeIndex === index ? 'active' : ''}`}
+              >
+                <div className="faq-question" onClick={() => toggleQuestion(index)}>
+                  {item.question}
+                </div>
+                {activeIndex === index && (
+                  <div className="faq-answer">{item.answer}</div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="no-results">No FAQs match your search.</p>
+          )}
+        </div>
       </div>
-    </div>
-  );
-}
-
-export default FAQ;
+    );
+  }
+  
+  export default FAQ;
