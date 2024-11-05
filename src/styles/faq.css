@@ -48,3 +48,25 @@
     font-size: 1em;
     color: var(--text-color);
   }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: #fff; /* Use white color for the text */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 1em;
+    text-decoration: none;
+  }
+  
+  .back-button:hover {
+    background-color: #145a89;
+  }
+  
+  .back-icon {
+    margin-right: 8px;
+  }
