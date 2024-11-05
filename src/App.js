@@ -78,7 +78,7 @@ function App() {
           <Route path="/:courseCode/:courseRun/:checklistID/:user_id" element={<ChecklistPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
           <Route
-            path="/admin/faq"
+            path="/admin/:courseCode/faq"
             element={
               isAuthenticated ? <FAQ /> : <Navigate to="/login" replace />
             }

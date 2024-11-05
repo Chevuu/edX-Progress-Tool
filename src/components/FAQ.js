@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/faq.css';
 import { FaArrowLeft } from 'react-icons/fa';
 
 function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
   const navigate = useNavigate();
+  const { courseCode } = useParams();
 
   const questionsAnswers = [
     {
@@ -35,7 +36,7 @@ function FAQ() {
   };
 
   const handleBack = () => {
-    navigate('/admin/yourCourseCode'); // Replace 'yourCourseCode' with the actual course code or route
+    navigate(`/admin/${courseCode}`);
   };
 
   return (

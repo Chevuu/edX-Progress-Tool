@@ -87,7 +87,7 @@ const AdminDashboard = ({ isDarkMode, toggleDarkMode }) => {
   };
 
   const handleFAQ = () => {
-    navigate('/admin/faq');
+    navigate(`/admin/${courseCode}/faq`);
   };
 
   if (loading) {
