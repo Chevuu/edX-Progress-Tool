@@ -86,7 +86,7 @@ const AdminDashboard = () => {
   };
 
   const handleFAQ = () => {
-    navigate('/admin/${courseCode}/faq');
+    navigate(`/admin/${courseCode}/faq`);
   };
 
   if (loading) {
