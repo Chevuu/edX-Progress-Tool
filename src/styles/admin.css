@@ -4,6 +4,16 @@
     --tu-delft-grey: #f0f0f0;
     --delete-red: #e74c3c;
   }
+
+  :root {
+    --background-color: #ffffff;
+    --text-color: #231f20;
+    --primary-color: #00a6d6;
+    --secondary-color: #f0f0f0;
+    --border-color: #00a6d6;
+    --delete-color: #e74c3c;
+    --input-background: #ffffff;
+  }
   
   /* General styling */
   body {
