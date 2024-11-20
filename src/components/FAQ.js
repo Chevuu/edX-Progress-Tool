@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/faq.css';
 import { FaArrowLeft } from 'react-icons/fa';
-const { courseCode } = useParams();
 
 function FAQ() {
+  const { courseCode } = useParams();
   const [activeIndex, setActiveIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
