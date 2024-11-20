@@ -1,12 +1,9 @@
 <?php
-// index.php
 
 header('Content-Type: application/json');
 
-// Include database connection
 require 'db_connect.php';
 
-// Determine the HTTP method and requested action
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $action = isset($_REQUEST['method']) ? $_REQUEST['method'] : '';
 
@@ -58,7 +55,8 @@ function registerUser($mysqli) {
         return;
     }
 
-    // Check if username exists
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $mysqli->prepare("SELECT id FROM users WHERE username = ?");
     if (!$stmt) {
         http_response_code(500);
@@ -70,30 +68,37 @@ function registerUser($mysqli) {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Username already exists.']);
         $stmt->close();
-        return;
-    }
-    $stmt->close();
-
-    // Hash password
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // Insert new user
-    $stmt = $mysqli->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-    if (!$stmt) {
-        http_response_code(500);
-        echo json_encode(['error' => 'Database error: ' . $mysqli->error]);
-        return;
-    }
-    $stmt->bind_param('ss', $username, $password_hash);
-
-    if ($stmt->execute()) {
-        echo json_encode(['message' => 'User registered successfully.']);
+        $stmt = $mysqli->prepare("UPDATE users SET password_hash = ? WHERE username = ?");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Database error: ' . $mysqli->error]);
+            return;
+        }
+        $stmt->bind_param('ss', $password_hash, $username);
+        if ($stmt->execute()) {
+            echo json_encode(['message' => 'Password updated successfully.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error updating password: ' . $stmt->error]);
+        }
+        $stmt->close();
     } else {
-        http_response_code(500);
-        echo json_encode(['error' => 'Error registering user: ' . $stmt->error]);
+        $stmt->close();
+        $stmt = $mysqli->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Database error: ' . $mysqli->error]);
+            return;
+        }
+        $stmt->bind_param('ss', $username, $password_hash);
+        if ($stmt->execute()) {
+            echo json_encode(['message' => 'User registered successfully.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error registering user: ' . $stmt->error]);
+        }
+        $stmt->close();
     }
     $stmt->close();
 }
@@ -110,7 +115,6 @@ function loginUser($mysqli) {
         return;
     }
 
-    // Retrieve user
     $stmt = $mysqli->prepare("SELECT id, password_hash FROM users WHERE username = ?");
     if (!$stmt) {
         http_response_code(500);
@@ -121,7 +125,6 @@ function loginUser($mysqli) {
     $stmt->execute();
     $stmt->bind_result($user_id, $password_hash);
     if ($stmt->fetch()) {
-        // Verify password
         if (password_verify($password, $password_hash)) {
             echo json_encode(['message' => 'Login successful.']);
         } else {
@@ -135,7 +138,6 @@ function loginUser($mysqli) {
     $stmt->close();
 }
 
-// Function to get a specific checklist
 function getChecklist($mysqli) {
     $courseCode_sanitized = filter_var($_GET['courseCode'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $courseCode = htmlspecialchars($courseCode_sanitized, ENT_QUOTES, 'UTF-8', false);
@@ -155,13 +157,11 @@ function getChecklist($mysqli) {
         return;
     }
 
-    // Check if a checklist exists for the given user
     $query = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '$user_id'";
     $result = $mysqli->query($query);
 
     if ($result) {
         if ($result->num_rows === 0) {
-            // If not, create a copy from the default checklist (UserID = 0)
             $defaultQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '0'";
             $defaultResult = $mysqli->query($defaultQuery);
 
@@ -169,13 +169,10 @@ function getChecklist($mysqli) {
                 $defaultData = $defaultResult->fetch_assoc();
                 $Questions = $defaultData['Questions'];
                 $Checks = $defaultData['Checks'];
-                $Instruction = $defaultData['Instruction'] ?? ''; // Handle NULL Instruction
-
-                // Insert a new checklist for the user including Instruction
+                $Instruction = $defaultData['Instruction'] ?? '';
                 $insertQuery = "INSERT INTO checklist (CourseRun, CourseCode, UserID, Questions, Checks, ChecklistID, Instruction) 
                                 VALUES ('$courseRun', '$courseCode', '$user_id', '$Questions', '$Checks', '$checklistID', '$Instruction')";
                 if ($mysqli->query($insertQuery)) {
-                    // Retrieve the newly created checklist
                     $newChecklistQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID' AND UserID = '$user_id'";
                     $newResult = $mysqli->query($newChecklistQuery);
                     if ($newResult && $newResult->num_rows > 0) {
@@ -194,9 +191,8 @@ function getChecklist($mysqli) {
                 echo json_encode(['error' => 'Default checklist not found']);
             }
         } else {
-            // Checklist exists for the user, return it
             $data = $result->fetch_assoc();
-            $data['Instruction'] = $data['Instruction'] ?? ''; // Handle NULL Instruction
+            $data['Instruction'] = $data['Instruction'] ?? '';
             echo json_encode($data);
         }
     } else {
@@ -205,9 +201,7 @@ function getChecklist($mysqli) {
     }
 }
 
-// Function to update a checklist's checks
 function updateChecklist($mysqli) {
-    // Read the JSON input
     $input = json_decode(file_get_contents('php://input'), true);
 
     $courseCode = isset($input['courseCode']) ? $mysqli->real_escape_string($input['courseCode']) : null;
@@ -222,10 +216,8 @@ function updateChecklist($mysqli) {
         return;
     }
 
-    // Convert the Checks array to JSON string
     $ChecksJSON = json_encode($Checks);
 
-    // Prepare the SQL query
     $query = "UPDATE checklist SET Checks = '$ChecksJSON' WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND UserID = '$user_id' AND ChecklistID = '$checklistID'";
 
     if ($mysqli->query($query)) {
@@ -236,8 +228,6 @@ function updateChecklist($mysqli) {
     }
 }
 
-// Get all checklists from the course
-// We filter by UserID = 0 to not get repetitions
 function getAllChecklistsByCourseCode($mysqli) {
     $courseCode = isset($_GET['courseCode']) ? $mysqli->real_escape_string($_GET['courseCode']) : null;
 
@@ -255,7 +245,6 @@ function getAllChecklistsByCourseCode($mysqli) {
         while ($row = $result->fetch_assoc()) {
             $checklists[] = $row;
         }
-        // Always return a 200 OK status with the checklists array (empty or not)
         echo json_encode($checklists);
     } else {
         http_response_code(500);
@@ -265,7 +254,7 @@ function getAllChecklistsByCourseCode($mysqli) {
 
 function deleteChecklist($mysqli) {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        http_response_code(405); // Method Not Allowed
+        http_response_code(405);
         echo json_encode(['error' => 'Invalid HTTP method']);
         return;
     }
@@ -304,7 +293,6 @@ function updateChecklistQuestions($mysqli) {
         return;
     }
 
-    // Fetch all checklists with matching CourseCode, CourseRun, and ChecklistID
     $selectQuery = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND CourseRun = '$courseRun' AND ChecklistID = '$checklistID'";
     $result = $mysqli->query($selectQuery);
 
@@ -313,21 +301,17 @@ function updateChecklistQuestions($mysqli) {
             $UserID = $row['UserID'];
             $currentChecks = json_decode($row['Checks'], true);
 
-            // Adjust the Checks array to match the new Questions array
             $newChecks = $currentChecks;
             $diff = count($Questions) - count($currentChecks);
 
             if ($diff > 0) {
-                // New questions added
                 for ($i = 0; $i < $diff; $i++) {
                     $newChecks[] = false;
                 }
             } elseif ($diff < 0) {
-                // Questions removed
                 $newChecks = array_slice($currentChecks, 0, count($Questions));
             }
 
-            // Prepare data for update
             $QuestionsJSON = $mysqli->real_escape_string(json_encode($Questions));
             $ChecksJSON = $mysqli->real_escape_string(json_encode($newChecks));
 
@@ -388,7 +372,6 @@ function getChecklistStats($mysqli) {
         return;
     }
 
-    // Get all checklists for the course where UserID != 0
     $query = "SELECT * FROM checklist WHERE CourseCode = '$courseCode' AND UserID != '0'";
     $result = $mysqli->query($query);
 
@@ -414,7 +397,6 @@ function getChecklistStats($mysqli) {
 
             $stats[$checklistID]['TotalSubmissions'] += 1;
 
-            // Count answers
             foreach ($checks as $index => $checked) {
                 if ($checked) {
                     $stats[$checklistID]['Answers'][$index]['count'] += 1;
@@ -422,7 +404,6 @@ function getChecklistStats($mysqli) {
             }
         }
 
-        // Convert stats to an array
         $statsArray = array_values($stats);
 
         echo json_encode($statsArray);
